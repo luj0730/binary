@@ -27,10 +27,10 @@ git remote add origin git@github.com:sv4us/binary.git
 git init .
 #添加分支
 git branch test
-#切换
+#切换到生成的分支
 git checkout  -b test
-#切换到主分支
-git checkout -b mster
+#切换分支
+ git checkout master
 #推送分支
 git push origin test
 #查看本地分支
