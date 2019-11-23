@@ -41,3 +41,4 @@ git branch -r
 git branch -d test
 #删除远程分支
 git push origin :develop
+#把原始.git复制到新目录
