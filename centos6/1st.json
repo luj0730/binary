@@ -1,0 +1,9 @@
+{
+    "file" : [
+    "build.sh",
+    "Dockerfile.v1",
+    "index.php",
+    "info.php",
+    "start.sh"
+    ]
+}

@@ -1,0 +1,34 @@
+FROM centos:6
+
+ARG DB_PASS='root'
+WORKDIR /var/www/html/
+
+RUN rpm -Uvh http://ftp.iij.ad.jp/pub/linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm \
+    && rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm \
+    && yum list --enablerepo=remi --enablerepo=remi-php56 \
+    && yum install -y --enablerepo=remi --enablerepo=remi-php56 php php-opcache php-devel php-mbstring php-mcrypt php-mysqlnd php-phpunit-PHPUnit php-pecl-xdebug php-pecl-xhprof  \
+    && yum install -y --enablerepo=remi --enablerepo=remi-php56 php-fpm \
+    && yum install -y mysql mysql-server \
+    && chkconfig mysqld on \
+    && service mysqld start \
+    && mysqladmin -uroot password ${DB_PASS} \
+    && mysql -uroot -p${DB_PASS} -e "use mysql; grant all privileges  on *.* to root@'%' identified by '${DB_PASS}'; flush privileges;" \
+    && /etc/init.d/mysqld restart \
+    && yum install -y httpd \
+    && chkconfig httpd on \
+    && service httpd start \
+    && yum install -y vim zsh wget git yum-utils net-tools
+#mysql_secure_installation
+
+COPY --chown=apache:apache index.php .
+COPY --chown=apache:apache info.php .
+
+WORKDIR /root
+COPY start.sh .
+
+RUN chown -R apache:apache /var/www \
+    && chmod 777 start.sh
+
+CMD [ "sh", "-c" ,"/root/start.sh" ]
+
+EXPOSE 22 80 3306

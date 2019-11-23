@@ -1,0 +1,31 @@
+{
+    "更新": "yum makecache",
+    "开机启动 : "chkconfig mysqld on",
+    "安全": "mysql_secure_installation",
+    "查找": "yum  provides */package-cleanup",
+    "组": [
+        "cat /etc/group",
+        "groups apache",
+        "id apache",
+        "chown -R apache:apache /var/www" 
+    ],
+    "重启": [
+        "service httpd restart",
+        "service php-fpm restart",
+        "service mysqld restart",
+
+        "/etc/init.d/httpd restart",
+        "/etc/init.d/php-fpm restart",
+        "/etc/init.d/mysqld restart",
+
+        "/etc/init.d/httpd restart && /etc/init.d/php-fpm restart && /etc/init.d/mysqld restart"
+    ],
+    "dos2unix": "dos2unix -k -o filename",
+    "清理": {
+        "find" : "yum -y install yum-utils",
+        "-name" : "find /var -name "*.log" \( \( -size +50M -mtime +7 \) -o -mtime +30 \) -exec truncate {} --size 0 \;",
+        "-regex" : "find /var/log  -regex  '.*\.log\|.*\.journal\|.*\.gz' \( \( -size +5M -mtime +7 \) -o -mtime +30 \) -exec truncate {} --size 0 \;",
+    },
+    "clean" : "yum clean all",
+    "package-cleanup" : "package-cleanup --quiet --leaves --exclude-bin | xargs yum remove -y"
+}

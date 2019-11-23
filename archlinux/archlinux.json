@@ -1,0 +1,12 @@
+{
+    "start" : "docker pull archlinux",
+    "同步更新源" : "pacman -Sy",
+    "下载源" : "pacman -Fy core extra community",
+    "搜索" : "pacman -F php",
+    "安装" : "pacman -Sy php",
+    "卸载" : "pacman -R php",
+    "正则" : "pacman -Ss php-",
+    "源" : "/etc/pacman.conf",
+    "lamp" : "pacman -S lighttpd php mysql",
+    "" : ""
+}
