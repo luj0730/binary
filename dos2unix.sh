@@ -10,6 +10,11 @@ RUN apk add --no-cache ${PACK} \
 
 EOF
 
+cat <<EOF >> outputfile
+some lines
+of text
+EOF
+
 sed -i -e 's/\r$//' scriptname.sh
 
 

@@ -70,3 +70,6 @@ docker container prune
 docker image rm alpine:latest
 docker import alpine.tar alpine:v1 
 docker run --rm -it alpine:v1 sh
+
+#进入
+docker exec -it 1201816b8229 bash
