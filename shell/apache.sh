@@ -45,7 +45,9 @@ mkdir -p /data/www && \
     curl 127.0.0.1:8081
     
 #####   VirtualHost #####
-    
+chgrp -R  www-data /data/www && \
+    find /data/www -type d -exec chmod g=rwxs "{}" \; && \
+    find /data/www -type f -exec chmod g=rw  "{}" \;
 
 #sed '/#<Directory \/srv\/>/i\11111' /etc/apache2/apache2.conf
 #sed '/#<Directory \/srv\/>/a\11111' /etc/apache2/apache2.conf

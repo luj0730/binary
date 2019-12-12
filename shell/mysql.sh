@@ -82,3 +82,51 @@ mysqld_safe --skip-grant-tables >/dev/null 2>&1 &
 #稍等5秒钟
 mysql -uroot mysql -e "update user set password = Password('adminss33') where User = 'root'; flush privileges;" && systemctl restart mysql
 
+
+#####   slow_query_log   #####
+cp /etc/mysql/my.cnf /etc/mysql/my.cnf.bak && \
+    echo "[mysqld]" >> /etc/mysql/my.cnf && \
+    echo "slow_query_log = ON" >> /etc/mysql/my.cnf && \
+    echo "slow_query_log_file = /var/lib/mysql/ubuntu-slow.log" >> /etc/mysql/my.cnf && \
+    echo "long_query_time = 0.001" >> /etc/mysql/my.cnf && \
+    echo > /var/lib/mysql/ubuntu-slow.log && \
+    chmod 777 /var/lib/mysql/ubuntu-slow.log && \
+    /etc/init.d/mysql restart && \
+    mysql -uroot -proot -e "show variables like 'slow_query%';" && \
+    echo "tail -f /var/lib/mysql/ubuntu-slow.log" && \
+    cat /var/lib/mysql/ubuntu-slow.log
+
+
+echo > /var/lib/mysql/ubuntu-slow.log && \
+    chmod 777 /var/lib/mysql/ubuntu-slow.log && \
+    mysql -uroot -proot -e "set global slow_query_log='ON'; \
+    set global slow_query_log_file='/var/lib/mysql/ubuntu-slow.log'; \
+    set global long_query_time=1; \
+    show variables like 'slow_query%';" && \
+    echo "tail -f /var/lib/mysql/ubuntu-slow.log" && \
+    cat /var/lib/mysql/ubuntu-slow.log
+
+#####   #####   #####
+
+
+#####   general_log   #####
+
+echo > /var/lib/mysql/ubuntu.log && \
+    chmod 777 /var/lib/mysql/ubuntu.log && \
+    mysql -uroot -proot -e "set global general_log='ON'; \
+    show variables like 'general_log%';" && \
+    tail -f /var/lib/mysql/ubuntu.log 
+    #echo "tail -f /var/lib/mysql/ubuntu.log" && \
+    #cat /var/lib/mysql/ubuntu.log
+
+echo > /var/lib/mysql/ubuntu.log && \
+    chmod 777 /var/lib/mysql/ubuntu.log && \
+    mysql -uroot -proot -e "set global general_log='ON'; \
+    set global general_log_file='/var/lib/mysql/ubuntu.log'; \
+    set global long_query_time=0.001; \
+    show variables like 'general_log%';" && \
+    echo "tail -f /var/lib/mysql/ubuntu.log" && \
+    cat /var/lib/mysql/ubuntu.log
+
+#####   #####   #####
+
