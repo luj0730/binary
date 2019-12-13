@@ -1,0 +1,5 @@
+http://hub.meefik.ru/rootfs/alpine_arm64.tgz
+http://hub.meefik.ru/rootfs/centos_arm64.tgz
+http://hub.meefik.ru/rootfs/kali_arm64.tgz
+http://hub.meefik.ru/rootfs/kalitop10_arm64.tgz
+http://hub.meefik.ru/rootfs/ubuntu_arm64.tgz

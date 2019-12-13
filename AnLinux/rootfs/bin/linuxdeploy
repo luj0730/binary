@@ -1,0 +1,4 @@
+#!/data/user/0/ru.meefik.linuxdeploy/files/bin/sh
+PATH=/data/user/0/ru.meefik.linuxdeploy/files/bin:$PATH
+ENV_DIR="/data/user/0/ru.meefik.linuxdeploy/files"
+. "${ENV_DIR}/cli.sh"
